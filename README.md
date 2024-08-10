@@ -1,4 +1,4 @@
-# API Weather App
+# API MOEX App
 
 ## Описание
 
