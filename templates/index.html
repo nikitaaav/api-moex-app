@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Info</title>
+    <link rel="stylesheet" href="static/styles/style.css">
+    <script src="static/js/script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>MOEX Stock Information Finder</h1>
+        <form id="stock-form">
+            <label for="stock-name">Enter Company Ticker:</label>
+            <input type="text" id="stock-name" placeholder="e.g., SBER" required>
+            <button onclick="return myFunc()" type="submit">Search</button>
+        </form>
+        <div id="stock-info" class="hidden">
+            <h2 id="stock-title"></h2>
+            <img id="stock-logo" alt="Company Logo">
+            <p id="stock-ticker"></p>
+            <p id="stock-webpage-text" style="display: inline;">Website: </p><p style="display: inline;"><a id="stock-webpage"></a></p>
+            <p id="stock-prev"></p>
+            <p id="stock-fullname"></p>
+            <p id="stock-shortname"></p>
+        </div>
+    </div>
+</body>
+</html>

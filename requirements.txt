@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+sqlalchemy
+aiosqlite
+requests
+pandas
+bs4
+jinja2
