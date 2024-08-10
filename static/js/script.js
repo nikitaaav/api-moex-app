@@ -1,9 +1,6 @@
 function myFunc() {
-//    event.preventDefault();
     const tkr = document.getElementById('stock-name').value.trim();
     if (tkr) {
-        // This is where you would typically make an API call to fetch stock information
-        // For demonstration purposes, we'll use static data
         fetch(`/api/stock/${tkr}`, {
             method: "GET",
             headers: { "Accept": "application/json" }
