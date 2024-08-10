@@ -7,9 +7,9 @@ import asyncio
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
+
 
 @app.get("/")
 async def index(request: Request):
@@ -27,6 +27,8 @@ async def stock_info(tkr: str):
     info = await info_task
 
     return info
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 # uvicorn src.main:app --reload

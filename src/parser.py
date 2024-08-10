@@ -7,6 +7,8 @@ import asyncio
 
 
 sess = requests.Session()
+
+
 async def get_info(tkr):
     url = "https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json"
     answer = dict()
@@ -25,6 +27,7 @@ async def get_info(tkr):
     answer["webpage"] = trading_view_parse[1]
 
     return answer
+
 
 async def get_scrp_from_trdview(tkr):
     try:

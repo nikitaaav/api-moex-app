@@ -6,3 +6,5 @@ requests
 pandas
 bs4
 jinja2
+pytest
+httpx

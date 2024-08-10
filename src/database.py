@@ -1,4 +1,5 @@
 import aiosqlite
+import asyncio
 
 
 async def print_db_data():
@@ -23,7 +24,9 @@ async def get_info_from_db(tkr):
     return stock[0]
 
 
-# print_db_data()
+# loop = asyncio.get_event_loop()
+# G = loop.run_until_complete(print_db_data())
+# loop.close()
 
 # tkr = input()
 # print(get_info_from_db(tkr))
