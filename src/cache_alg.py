@@ -22,9 +22,12 @@ def get_stock_info():
     return df
 
 def cache():
-    connection = sqlite3.connect('src/database.db')
+    connection = sqlite3.connect('database.db')
     cursor = connection.cursor()
     data = get_stock_info()
+
+    cursor.execute("DROP TABLE IF EXISTS Stocks")
+    connection.commit()
 
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS Stocks (
