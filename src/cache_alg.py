@@ -1,15 +1,15 @@
 from parser import get_scrp_from_trdview, get_stock_tkrs
-import sqlite3
+import aiosqlite
 import pandas as pd
+import asyncio
 
-
-def get_stock_info():
-    tickers = get_stock_tkrs()
+async def get_stock_info():
+    tickers = await get_stock_tkrs()
     pages, logos = [], []
     result = dict()
 
     for ticker in tickers:
-        info = get_scrp_from_trdview(ticker)
+        info = await get_scrp_from_trdview(ticker)
         pages.append(info["webpage"])
         logos.append(info["logo"])
 
@@ -21,15 +21,16 @@ def get_stock_info():
 
     return df
 
-def cache():
-    connection = sqlite3.connect('database.db')
-    cursor = connection.cursor()
-    data = get_stock_info()
 
-    cursor.execute("DROP TABLE IF EXISTS Stocks")
-    connection.commit()
+async def cache():
+    connection = await aiosqlite.connect('database.db')
+    cursor = await connection.cursor()
+    data = await get_stock_info()
 
-    cursor.execute('''
+    await cursor.execute("DROP TABLE IF EXISTS Stocks")
+    await connection.commit()
+
+    await cursor.execute('''
     CREATE TABLE IF NOT EXISTS Stocks (
     ticker TEXT,
     page TEXT,
@@ -38,9 +39,12 @@ def cache():
     ''')
 
     for index, row in data.iterrows():
-        cursor.execute("INSERT INTO Stocks (ticker, page, logo) VALUES (?, ?, ?)",
+        await cursor.execute("INSERT INTO Stocks (ticker, page, logo) VALUES (?, ?, ?)",
                        (row["ticker"], row["page"], row["logo"]))
-        connection.commit()
-    connection.close()
+        await connection.commit()
+    await connection.close()
 
-cache()
+loop = asyncio.get_event_loop()
+G = loop.run_until_complete(cache())
+
+loop.close()
