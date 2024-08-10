@@ -3,10 +3,11 @@ import json
 import pandas as pd
 from bs4 import BeautifulSoup as bs
 from src.database import get_info_from_db
+import asyncio
 
 
 sess = requests.Session()
-def get_info(tkr):
+async def get_info(tkr):
     url = "https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json"
     answer = dict()
     response = sess.get(url)
@@ -19,13 +20,13 @@ def get_info(tkr):
     answer["fullname"] = df[df.SECID == tkr].SECNAME.to_string(index=False)
     answer["ticker"] = tkr
     # const
-    trading_view_parse = get_info_from_db(tkr)
+    trading_view_parse = await get_info_from_db(tkr)
     answer["logo"] = trading_view_parse[2]
     answer["webpage"] = trading_view_parse[1]
 
     return answer
 
-def get_scrp_from_trdview(tkr):
+async def get_scrp_from_trdview(tkr):
     try:
         url = f"https://ru.tradingview.com/symbols/MOEX-{tkr}/"
         r = requests.get(url)
@@ -44,7 +45,7 @@ def get_scrp_from_trdview(tkr):
         }
 
 
-def get_stock_tkrs():
+async def get_stock_tkrs():
     url = "https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json"
     response = sess.get(url)
     data = json.loads(response.text)
