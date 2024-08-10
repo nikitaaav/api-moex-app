@@ -62,8 +62,8 @@ API MOEX app - это веб-приложение, которое предост
 
 ## Использование
 
-- Введите название города в поле ввода
-- Нажмите на кнопку "Получить погоду"
+- Введите тикер акции в поле ввода
+- Нажмите на кнопку "Search"
 - Информация о запросе отобразиться на главной странице
 
 ## API
@@ -73,15 +73,15 @@ API MOEX app - это веб-приложение, которое предост
 - **URL**: `/api/stock/{tkr}`
 - **Метод**: `GET`
 - **Параметры**:
-  - `tkr` - название города
+  - `tkr` - тикер акции
 - **Ответ (пример)**:
   ```json
   {
-    "shortname": "Moscow",
-    "prev": "Moscow",
-    "fullname": "Moscow",
-    "ticker": "Moscow",
-    "logo": "Moscow",
-    "webpage": 5
+    "shortname": "Аэрофлот",
+    "prev": "50.39",
+    "fullname": "Аэрофлот-росс.авиалин(ПАО)ао",
+    "ticker": "AFLT",
+    "logo": "https://s3-symbol-logo.tradingview.com/aeroflot--big.svg",
+    "webpage": "http://www.aeroflot.ru/"
   }
   ```
